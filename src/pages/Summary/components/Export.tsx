@@ -3,6 +3,7 @@ import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
 
 const Export = () => {
+  const [PDF, setPDF] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
   return (
     <div className="flex flex-col gap-3 pt-4 pl-4 pr-4">
@@ -12,7 +13,7 @@ const Export = () => {
         <span> You can download it now or start a new meeting.</span>
       </p>
       {isComplete ? (
-        <CompletePDF />
+        <CompletePDF PDF={PDF} />
       ) : (
         <ReadyPDF setIsComplete={setIsComplete} />
       )}

@@ -1,7 +1,8 @@
+import useDownloadPDF from "@/hooks/useDownloadPDF";
 import Button from "../../../components/Button";
 
-const CompletePDF = () => {
-  const handleDownloadPDF = () => {};
+const CompletePDF = ({ PDF }) => {
+  const handleDownloadPDF = useDownloadPDF();
   return (
     <div className="flex flex-col gap-3">
       <img
