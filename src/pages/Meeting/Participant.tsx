@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import { MockParticipant } from "../../mocks/MockParticipant";
 import Profile from "./Profile";
 
@@ -29,9 +30,7 @@ const Participant = ({ time = "00:00:00" }: ParticipantProps) => {
         </p>
       </div>
       <div className="flex justify-center items-center pt-3">
-        <button className="w-30 h-10 text-sm rounded-2xl bg-[#C4D9EB]">
-          End Meeting
-        </button>
+        <Button color="skyblue">End Meeting</Button>
       </div>
     </div>
   );

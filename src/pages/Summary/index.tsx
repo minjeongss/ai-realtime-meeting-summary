@@ -1,0 +1,18 @@
+import Detail from "./Detail";
+import Export from "./Export";
+
+const Summary = () => {
+  return (
+    <div>
+      <p className="pb-5 text-center font-semibold text-2xl">
+        Your meeting summary is ready!
+      </p>
+      <div className="w-full h-full flex [&>div]:flex-1">
+        <Detail />
+        <Export />
+      </div>
+    </div>
+  );
+};
+
+export default Summary;
