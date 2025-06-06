@@ -2,7 +2,7 @@ import Button from "../../../components/Button";
 
 const CompletePDF = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <img
         className="rounded-xl overflow-hidden"
         src="/src/assets/images/pdf.svg"
