@@ -1,5 +1,9 @@
 function App() {
-  return <>AI Meeting Summary Service</>;
+  return (
+    <div className="flex justify-center items-center">
+      AI Meeting Summary Service
+    </div>
+  );
 }
 
 export default App;
