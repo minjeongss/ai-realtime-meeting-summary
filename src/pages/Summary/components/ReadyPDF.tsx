@@ -1,30 +1,14 @@
 import { Progress } from "@/components/ui/progress";
-import { useEffect, useState, type SetStateAction } from "react";
+import useTimer from "@/hooks/useTimer";
+import { useState, type SetStateAction } from "react";
 
 const ReadyPDF = ({
   setIsComplete,
 }: {
   setIsComplete: React.Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const nextProgress = prev + 10;
-        if (nextProgress >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return nextProgress;
-      });
-    }, 1200);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (progress === 100) setIsComplete(true);
-  }, [progress, setProgress, setIsComplete]);
+  const [progress, setProgress] = useState<number>(0);
+  useTimer({ progress, setProgress, setIsComplete });
 
   return (
     <div className="flex flex-col gap-3">
