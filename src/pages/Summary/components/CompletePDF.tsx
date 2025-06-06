@@ -1,6 +1,7 @@
 import Button from "../../../components/Button";
 
 const CompletePDF = () => {
+  const handleDownloadPDF = () => {};
   return (
     <div className="flex flex-col gap-3">
       <img
@@ -8,7 +9,9 @@ const CompletePDF = () => {
         src="/src/assets/images/pdf.svg"
         alt="pdf"
       />
-      <Button color="blue">Download PDF</Button>
+      <Button color="blue" onClick={handleDownloadPDF}>
+        Download PDF
+      </Button>
     </div>
   );
 };

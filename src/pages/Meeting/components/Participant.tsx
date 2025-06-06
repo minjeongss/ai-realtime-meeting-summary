@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
 import { MockParticipant } from "../../../mocks/MockParticipant";
 import Profile from "./Profile";
 
 const Participant = () => {
+  const navigate = useNavigate();
+  const handleQuitMeeting = () => {
+    navigate("/summary");
+  };
   return (
     <div className="flex flex-col">
       <div>
@@ -22,7 +27,9 @@ const Participant = () => {
           Total Participants: {4}
         </p>
       </div>
-      <Button color="gray">End Meeting</Button>
+      <Button color="gray" onClick={handleQuitMeeting}>
+        End Meeting
+      </Button>
     </div>
   );
 };

@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
 import PartDetail from "./PartDetail";
 
 const Detail = () => {
+  const navigate = useNavigate();
+  const handleResetMeeting = () => {
+    navigate("/");
+  };
   return (
     <div className="flex flex-col">
       <p className="p-4 font-semibold text-lg">Meeting Details</p>
@@ -14,7 +19,9 @@ const Detail = () => {
           <PartDetail header="Date" content="July 26,2024" />
         </div>
       </div>
-      <Button color="gray">Start a New Meeting</Button>
+      <Button color="gray" onClick={handleResetMeeting}>
+        Start a New Meeting
+      </Button>
     </div>
   );
 };
