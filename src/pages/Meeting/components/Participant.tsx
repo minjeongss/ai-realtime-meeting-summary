@@ -29,7 +29,7 @@ const Participant = ({ time = "00:00:00" }: ParticipantProps) => {
           Total Participants: {4}
         </p>
       </div>
-      <Button color="skyblue">End Meeting</Button>
+      <Button color="gray">End Meeting</Button>
     </div>
   );
 };

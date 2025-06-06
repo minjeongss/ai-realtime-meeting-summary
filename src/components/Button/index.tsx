@@ -3,10 +3,9 @@ interface ButtonProps {
   color: Color;
 }
 
-type Color = "skyblue" | "blue" | "gray";
+type Color = "blue" | "gray";
 
 const bgVariants = {
-  skyblue: "bg-[#C4D9EB]",
   blue: "bg-[#1285E8] text-[#F7FAFC]",
   gray: "bg-[#E8EDF2]",
 };
