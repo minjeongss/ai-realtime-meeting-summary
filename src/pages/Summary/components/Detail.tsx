@@ -1,5 +1,5 @@
-import Button from "../../components/Button";
-import PartDetail from "./PartDetail";
+import Button from "../../../components/Button";
+import PartDetail from "../PartDetail";
 
 const Detail = () => {
   return (
@@ -14,9 +14,7 @@ const Detail = () => {
           <PartDetail header="Date" content="July 26,2024" />
         </div>
       </div>
-      <div className="flex justify-center items-center pt-3 pb-3 pl-4 pr-4 ">
-        <Button color="gray">Start a New Meeting</Button>
-      </div>
+      <Button color="gray">Start a New Meeting</Button>
     </div>
   );
 };

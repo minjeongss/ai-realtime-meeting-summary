@@ -1,5 +1,5 @@
-import Button from "../../components/Button";
-import { MockParticipant } from "../../mocks/MockParticipant";
+import Button from "../../../components/Button";
+import { MockParticipant } from "../../../mocks/MockParticipant";
 import Profile from "./Profile";
 
 interface ParticipantProps {
@@ -29,9 +29,7 @@ const Participant = ({ time = "00:00:00" }: ParticipantProps) => {
           Total Participants: {4}
         </p>
       </div>
-      <div className="flex justify-center items-center pt-3">
-        <Button color="skyblue">End Meeting</Button>
-      </div>
+      <Button color="skyblue">End Meeting</Button>
     </div>
   );
 };

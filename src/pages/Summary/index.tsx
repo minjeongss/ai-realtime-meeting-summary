@@ -1,5 +1,5 @@
-import Detail from "./Detail";
-import Export from "./Export";
+import Detail from "./components/Detail";
+import Export from "./components/Export";
 
 const Summary = () => {
   return (

@@ -1,4 +1,4 @@
-import { MockSummary } from "../../mocks/MockSummary";
+import { MockSummary } from "../../../mocks/MockSummary";
 
 const Summary = () => {
   return (

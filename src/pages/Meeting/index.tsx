@@ -1,5 +1,5 @@
-import Participant from "./Participant";
-import Summary from "./Summary";
+import Participant from "./components/Participant";
+import Summary from "./components/Summary";
 
 const Meeting = () => {
   return (
