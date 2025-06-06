@@ -1,8 +1,30 @@
 import { Progress } from "@/components/ui/progress";
-import { useState } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
 
-const ReadyPDF = () => {
-  const [progress, setProgress] = useState(13);
+const ReadyPDF = ({
+  setIsComplete,
+}: {
+  setIsComplete: React.Dispatch<SetStateAction<boolean>>;
+}) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        const nextProgress = prev + 10;
+        if (nextProgress >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        return nextProgress;
+      });
+    }, 1200);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (progress === 100) setIsComplete(true);
+  }, [progress, setProgress, setIsComplete]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -11,7 +33,7 @@ const ReadyPDF = () => {
       </p>
       <p>회의록 생성중</p>
       <Progress value={progress} />
-      <p className="text-sm text-[#4D7399]">예상 남은 시간: 2분</p>
+      <p className="text-sm text-[#4D7399]">예상 소요 시간: 2분</p>
     </div>
   );
 };
