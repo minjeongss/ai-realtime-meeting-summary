@@ -16,7 +16,7 @@ const Meeting = () => {
       <p className="text-center pt-5 pb-3 font-semibold text-2xl">
         Current Meeting Time: {time}
       </p>
-      <div className="w-full h-full grid grid-cols-[3fr_2fr] gap-12">
+      <div className="w-full h-full grid grid-cols-2 gap-12">
         <Participant />
         <Summary />
       </div>

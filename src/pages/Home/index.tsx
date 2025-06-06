@@ -6,7 +6,9 @@ const Home = () => {
   const [nickname, SetNickname] = useState("");
 
   const handleJoinMeeting = () => {
-    navigate("/meeting", { state: nickname });
+    if (nickname.trim()) {
+      navigate("/meeting", { state: nickname.trim() });
+    }
   };
 
   return (
