@@ -3,7 +3,7 @@ import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
 
 const Export = () => {
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(true);
   return (
     <div className="flex flex-col gap-3 pt-4 pl-4 pr-4">
       <p className="font-semibold text-lg">Export to PDF</p>
