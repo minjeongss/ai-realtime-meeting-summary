@@ -1,0 +1,2 @@
+export const MockSummary =
+  "The team discussed the progress on the Q3 marketing campaign, with Sophia Clark presenting the initial results from the social media initiatives. Liam Carter provided insights on the upcoming product launch, and Ava Harper shared updates on the customer feedback analysis. Noah Bennett outlined the next steps for the content strategy, focusing on enhancing engagement across all platforms.";
