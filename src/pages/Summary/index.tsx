@@ -7,7 +7,7 @@ const Summary = () => {
       <p className="pb-3 text-center font-semibold text-2xl">
         Your meeting summary is ready!
       </p>
-      <div className="w-full h-full flex [&>div]:flex-1 pt-5">
+      <div className="w-full h-full grid grid-cols-2 pt-5">
         <Detail />
         <Export />
       </div>

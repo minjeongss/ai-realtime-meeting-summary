@@ -1,13 +1,16 @@
+import { useState } from "react";
 import Participant from "./components/Participant";
 import Summary from "./components/Summary";
 
 const Meeting = () => {
+  const [time, setTime] = useState("00:00:00");
   return (
-    <div className="w-full h-full flex flex-row gap-12">
-      <div className="flex-grow-[600] basis-0 max-w-[550px]">
+    <div>
+      <p className="text-center pt-5 pb-3 font-semibold text-2xl">
+        Current Meeting Time: {time}
+      </p>
+      <div className="w-full h-full grid grid-cols-[3fr_2fr] gap-12">
         <Participant />
-      </div>
-      <div className="flex-grow-[400] basis-0 max-w-[360px]">
         <Summary />
       </div>
     </div>

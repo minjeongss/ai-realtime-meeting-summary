@@ -1,5 +1,5 @@
 import Button from "../../../components/Button";
-import PartDetail from "../PartDetail";
+import PartDetail from "./PartDetail";
 
 const Detail = () => {
   return (
