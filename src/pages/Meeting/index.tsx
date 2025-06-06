@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Participant from "./components/Participant";
 import Summary from "./components/Summary";
 import { useLocation } from "react-router";
+import formatDate from "@/utils/formatDate";
 
 const Meeting = () => {
-  const [time, setTime] = useState("00:00:00");
+  const date = formatDate(new Date());
   const location = useLocation();
 
   useEffect(() => {
@@ -14,7 +15,7 @@ const Meeting = () => {
   return (
     <div>
       <p className="text-center pt-5 pb-3 font-semibold text-2xl">
-        Current Meeting Time: {time}
+        Current Meeting Date: {date}
       </p>
       <div className="w-full h-full grid grid-cols-2 gap-12">
         <Participant />
