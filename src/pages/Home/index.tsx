@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col gap-6 justify-center items-center ">
+    <div className="w-full min-h-[calc(100vh-100.8px)] flex flex-col gap-6 justify-center items-center ">
       <p className="font-semibold text-2xl">Voice Meeting Summary</p>
       <input
         className="w-112 flex justify-center items-center text-center p-4 rounded-2xl text-[#4A739C] bg-[#E8EDF5]"
