@@ -14,7 +14,7 @@ const ReadyPDF = ({
     <div className="flex flex-col gap-3">
       <p>Making meeting summary 🔥</p>
       <Progress value={progress} />
-      <p className="text-sm text-[#4D7399]">예상 소요 시간: 2분</p>
+      <p className="text-sm text-[#4D7399]">Expected Time: 2 Minutes</p>
     </div>
   );
 };
