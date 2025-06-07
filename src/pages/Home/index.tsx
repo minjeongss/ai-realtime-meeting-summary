@@ -23,7 +23,9 @@ const Home = () => {
       />
       <button
         onClick={handleJoinMeeting}
-        className="h-12 pl-5 pr-5 rounded-2xl text-[#F7FAFC] bg-[#0D80F2]"
+        className={`h-12 pl-5 pr-5 rounded-2xl text-[#F7FAFC] bg-[#0D80F2]
+                    hover:shadow-xs hover:scale-[1.02] hover:cursor-pointer
+                    transition duration-200 ease-in-out`}
       >
         Join Meeting
       </button>

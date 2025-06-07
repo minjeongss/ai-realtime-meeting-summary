@@ -16,7 +16,9 @@ const Button = ({ color, children, onClick }: ButtonProps) => {
     <div className="flex justify-center items-center pt-3 pb-3 pl-4 pr-4">
       <button
         onClick={onClick}
-        className={`h-10 pl-4 pr-4 font-semibold text-xs rounded-[20px] ${bgVariants[color]}`}
+        className={`h-10 pl-4 pr-4 font-semibold text-xs rounded-[20px] ${bgVariants[color]}
+                    hover:shadow-xs hover:scale-[1.02] hover:cursor-pointer
+                    transition duration-200 ease-in-out`}
       >
         {children}
       </button>
