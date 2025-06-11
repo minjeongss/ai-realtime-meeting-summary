@@ -6,7 +6,9 @@ import Profile from "./Profile";
 const Participant = () => {
   const navigate = useNavigate();
   const handleQuitMeeting = () => {
-    navigate("/summary");
+    navigate("/summary", {
+      state: { time: "00:00:00-00:00:00", participants: 3 },
+    });
   };
   return (
     <div className="flex flex-col">

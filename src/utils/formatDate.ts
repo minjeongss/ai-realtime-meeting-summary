@@ -1,5 +1,5 @@
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString("ko-KR", {
+  return date.toLocaleDateString("en-US", {
     dateStyle: "full",
   });
 };
