@@ -75,5 +75,6 @@ export const EntireSummaryMockResponse: EntireSummaryResponse = {
       },
     ],
   },
-  pdfLink: "",
+  pdfLink:
+    "https://inha-pj-05-meeting-minutes-pdf.s3.us-east-1.amazonaws.com/pdf/meeting-minutes-1748526903113.pdf",
 };

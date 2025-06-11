@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import pdfImage from "@/assets/images/pdf.svg";
 
 const CompletePDF = ({ pdfLink }: { pdfLink: string }) => {
-  const handleDownloadPDF = useDownloadPDF();
+  const handleDownloadPDF = useDownloadPDF(pdfLink);
   return (
     <div className="flex flex-col gap-3">
       <img className="rounded-xl overflow-hidden" src={pdfImage} alt="pdf" />

@@ -19,7 +19,7 @@ export const useGetEntireSummary = (
     mutationFn: async () => (await fetch("/entire", { method: "POST" })).json(),
     onSuccess: (data) => {
       console.log(data);
-      setIsComplete(false);
+      setIsComplete(true);
     },
     retry: 3,
     retryDelay: 500,
