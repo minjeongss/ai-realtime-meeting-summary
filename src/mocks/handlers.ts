@@ -1,17 +1,15 @@
-import { HttpResponse, http } from "msw";
-import { TemporalSummaryResponse, EntireSummaryResponse } from "./dummy";
+import { HttpResponse, delay, http } from "msw";
+import {
+  TemporalSummaryMockResponse,
+  EntireSummaryMockResponse,
+} from "./dummy";
 
 export const handlers = [
   http.get("/temporal", () => {
-    return HttpResponse.json(TemporalSummaryResponse);
+    return HttpResponse.json(TemporalSummaryMockResponse);
   }),
-  http.get("/entire", () => {
-    return HttpResponse.json(EntireSummaryResponse);
+  http.post("/entire", async () => {
+    await delay(1000);
+    return HttpResponse.json(EntireSummaryMockResponse);
   }),
-  //   http.get("/entire", async ({ request }) => {
-  //     const body = await request.json();
-  //     console.log(body);
-  //     await delay(5000);
-  //     return HttpResponse.json(dummy.entireSummary);
-  //   }),
 ];

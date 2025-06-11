@@ -3,10 +3,10 @@ import { useEffect, type SetStateAction } from "react";
 interface UseTimerProps {
   progress: number;
   setProgress: React.Dispatch<SetStateAction<number>>;
-  setIsComplete: React.Dispatch<SetStateAction<boolean>>;
+  isComplete: boolean;
 }
 
-const useTimer = ({ progress, setProgress, setIsComplete }: UseTimerProps) => {
+const useTimer = ({ progress, setProgress, isComplete }: UseTimerProps) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -22,8 +22,8 @@ const useTimer = ({ progress, setProgress, setIsComplete }: UseTimerProps) => {
   }, []);
 
   useEffect(() => {
-    if (progress === 100) setIsComplete(true);
-  }, [progress, setProgress, setIsComplete]);
+    if (isComplete === true) setProgress(100);
+  }, [progress, setProgress, isComplete]);
 };
 
 export default useTimer;

@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
+import { useGetEntireSummary } from "@/hooks/useGetSummary";
 
 const Export = () => {
   const [isComplete, setIsComplete] = useState(false);
+  const { mutate, data } = useGetEntireSummary(setIsComplete);
+
+  useEffect(() => {
+    mutate();
+  }, []);
+
   return (
     <div className="flex flex-col gap-3 pt-4 pl-4 pr-4">
       <p className="font-semibold text-lg">Export to PDF</p>
@@ -12,9 +19,9 @@ const Export = () => {
         <span> You can download it now or start a new meeting.</span>
       </p>
       {isComplete ? (
-        <CompletePDF />
+        <CompletePDF pdfLink={data?.pdfLink} />
       ) : (
-        <ReadyPDF setIsComplete={setIsComplete} />
+        <ReadyPDF isComplete={isComplete} />
       )}
     </div>
   );

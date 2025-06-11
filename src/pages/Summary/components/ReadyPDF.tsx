@@ -1,14 +1,10 @@
 import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
-import { useState, type SetStateAction } from "react";
+import { useState } from "react";
 
-const ReadyPDF = ({
-  setIsComplete,
-}: {
-  setIsComplete: React.Dispatch<SetStateAction<boolean>>;
-}) => {
+const ReadyPDF = ({ isComplete }: { isComplete: boolean }) => {
   const [progress, setProgress] = useState<number>(0);
-  useTimer({ progress, setProgress, setIsComplete });
+  useTimer({ progress, setProgress, isComplete });
 
   return (
     <div className="flex flex-col gap-3">

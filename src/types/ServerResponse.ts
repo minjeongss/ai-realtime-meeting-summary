@@ -1,9 +1,18 @@
-export interface SummaryResponse {
+export interface TemporalSummaryResponse {
   statusCode: number;
   title: string;
   createdAt: string; // (YYYY-MM-DD)
   summaryResult: string;
-  parsed: EntireSummaryResult | TemporalSummaryResult;
+  parsed: TemporalSummaryResult;
+}
+
+export interface EntireSummaryResponse {
+  statusCode: number;
+  title: string;
+  createdAt: string; // (YYYY-MM-DD)
+  summaryResult: string;
+  parsed: EntireSummaryResult;
+  pdfLink: string;
 }
 
 interface EntireSummaryResult {

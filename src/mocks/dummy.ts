@@ -1,6 +1,9 @@
-import type { SummaryResponse } from "@/types/ServerResponse";
+import type {
+  TemporalSummaryResponse,
+  EntireSummaryResponse,
+} from "@/types/ServerResponse";
 
-export const TemporalSummaryResponse: SummaryResponse = {
+export const TemporalSummaryMockResponse: TemporalSummaryResponse = {
   statusCode: 202,
   title: "6월 11일 회의 요약",
   createdAt: "2025-06-11",
@@ -22,7 +25,7 @@ export const TemporalSummaryResponse: SummaryResponse = {
   },
 };
 
-export const EntireSummaryResponse: SummaryResponse = {
+export const EntireSummaryMockResponse: EntireSummaryResponse = {
   statusCode: 200,
   title: "6월 11일 회의 요약",
   createdAt: "2025-06-11",
@@ -72,4 +75,5 @@ export const EntireSummaryResponse: SummaryResponse = {
       },
     ],
   },
+  pdfLink: "",
 };

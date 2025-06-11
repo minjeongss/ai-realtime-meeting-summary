@@ -1,8 +1,9 @@
-import type { SummaryResponse } from "@/types/ServerResponse";
-import { useQuery } from "@tanstack/react-query";
+import type { TemporalSummaryResponse } from "@/types/ServerResponse";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import type { SetStateAction } from "react";
 
 export const useGetTemporalSummary = () => {
-  const { data, refetch, isFetching } = useQuery<SummaryResponse>({
+  const { data, refetch, isFetching } = useQuery<TemporalSummaryResponse>({
     queryKey: ["temporalSummary"],
     queryFn: async () => (await fetch("/temporal")).json(),
     enabled: false,
@@ -10,9 +11,18 @@ export const useGetTemporalSummary = () => {
   return { data, refetch, isFetching };
 };
 
-export const useGetEntireSummary = () => {
-  const query = useQuery({
-    queryKey: ["entireSummary"],
-    queryFn: async () => (await fetch("/entire")).json(),
+export const useGetEntireSummary = (
+  setIsComplete: React.Dispatch<SetStateAction<boolean>>
+) => {
+  const { mutate, data } = useMutation({
+    mutationKey: ["entireSummary"],
+    mutationFn: async () => (await fetch("/entire", { method: "POST" })).json(),
+    onSuccess: (data) => {
+      console.log(data);
+      setIsComplete(true);
+    },
+    retry: 3,
+    retryDelay: 500,
   });
+  return { mutate, data };
 };
