@@ -3,11 +3,14 @@ import { useNavigate } from "react-router";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [nickname, SetNickname] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [meetingId, setMeetingId] = useState("meeting-");
 
   const handleJoinMeeting = () => {
-    if (nickname.trim()) {
-      navigate("/meeting", { state: nickname.trim() });
+    if (nickname.trim() && meetingId.trim()) {
+      navigate("/meeting", {
+        state: { meetingId: meetingId.trim(), nickname: nickname.trim() },
+      });
     }
   };
 
@@ -15,8 +18,15 @@ const Home = () => {
     <div className="w-full min-h-[calc(100vh-100.8px)] flex flex-col gap-6 justify-center items-center ">
       <p className="font-semibold text-2xl">Voice Meeting Summary</p>
       <input
+        value={meetingId}
+        onChange={(event) => setMeetingId(event.target.value)}
+        className="w-112 flex justify-center items-center text-center p-4 rounded-2xl text-[#4A739C] bg-[#E8EDF5] outline-none"
+        type="text"
+        placeholder="Enter meeting ID"
+      />
+      <input
         value={nickname}
-        onChange={(event) => SetNickname(event.target.value)}
+        onChange={(event) => setNickname(event.target.value)}
         className="w-112 flex justify-center items-center text-center p-4 rounded-2xl text-[#4A739C] bg-[#E8EDF5] outline-none"
         type="text"
         placeholder="Enter your nickname"

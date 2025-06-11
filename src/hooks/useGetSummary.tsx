@@ -7,6 +7,8 @@ export const useGetTemporalSummary = () => {
     queryKey: ["temporalSummary"],
     queryFn: async () => (await fetch("/temporal")).json(),
     enabled: false,
+    retry: 3,
+    retryDelay: 500,
   });
   return { data, refetch, isFetching };
 };
@@ -17,8 +19,7 @@ export const useGetEntireSummary = (
   const { mutate, data } = useMutation({
     mutationKey: ["entireSummary"],
     mutationFn: async () => (await fetch("/entire", { method: "POST" })).json(),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       setIsComplete(true);
     },
     retry: 3,
