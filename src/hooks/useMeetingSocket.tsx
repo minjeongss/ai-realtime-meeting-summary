@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface UseMeetingSocketProps {
   meetingId: string;
@@ -7,6 +7,7 @@ interface UseMeetingSocketProps {
 
 const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   const socketRef = useRef<WebSocket | null>(null);
+  const [paricipants, setParticipants] = useState<string[]>([]);
 
   const startConnection = () => {
     const socket = new WebSocket("ws://localhost:3000");
@@ -25,7 +26,9 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
 
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      console.log("서버로부터 수신:", message);
+      if (message.type === "joined") {
+        setParticipants(message.participants);
+      }
     };
 
     socket.onclose = () => {
@@ -51,6 +54,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   return {
     startConnection,
     endConnection,
+    paricipants,
   };
 };
 

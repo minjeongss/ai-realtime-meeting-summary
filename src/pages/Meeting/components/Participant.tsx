@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
-import { MockParticipant } from "../../../mocks/MockParticipant";
 import Profile from "./Profile";
 
-const Participant = () => {
+const Participant = ({ paricipants }: { paricipants: string[] }) => {
   const navigate = useNavigate();
   const handleQuitMeeting = () => {
     navigate("/summary", {
@@ -15,7 +14,7 @@ const Participant = () => {
       <div>
         <p className="pt-5 pb-3 font-semibold text-lg">Participants</p>
         <ul className="rounded-xl bg-[#E5E8EB]/50">
-          {MockParticipant.map((nickname, index) => (
+          {paricipants.map((nickname, index) => (
             <li
               className="h-14 flex flex-row gap-4 jusfity-center items-center pl-4 pr-4"
               key={`${nickname}+${index}`}
@@ -26,7 +25,7 @@ const Participant = () => {
           ))}
         </ul>
         <p className="pt-1 pb-3 text-sm text-[#5C738A]">
-          Total Participants: {4}
+          Total Participants: {paricipants.length}
         </p>
       </div>
       <Button color="gray" onClick={handleQuitMeeting}>
