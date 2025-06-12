@@ -42,7 +42,8 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
           startVoiceCapture();
           break;
         case "recording_stopped":
-          endVoiceCapture();
+          break;
+        case "meeting_ended":
           break;
       }
       console.log(message);
@@ -60,6 +61,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   };
 
   const endConnection = () => {
+    endVoiceCapture();
     socketRef.current?.send(
       JSON.stringify({
         type: "stop_recording",

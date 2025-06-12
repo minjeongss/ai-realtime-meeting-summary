@@ -16,6 +16,7 @@ const Meeting = () => {
   useEffect(() => {
     startConnection();
     return () => {
+      console.log(4);
       endConnection();
     };
   }, []);
