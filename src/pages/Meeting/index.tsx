@@ -3,13 +3,18 @@ import Participant from "./components/Participant";
 import Summary from "./components/Summary";
 import { useLocation } from "react-router";
 import formatDate from "@/utils/formatDate";
+import useVoiceTransfer from "@/hooks/useMeetingSocket";
 
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
+  const { startConnection } = useVoiceTransfer({
+    meetingId: location.state.meetingId,
+    userId: location.state.nickname,
+  });
 
   useEffect(() => {
-    console.log(location.state);
+    startConnection();
   }, []);
 
   return (
