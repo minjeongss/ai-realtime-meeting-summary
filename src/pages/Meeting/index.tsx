@@ -8,13 +8,16 @@ import useVoiceTransfer from "@/hooks/useMeetingSocket";
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
-  const { startConnection, paricipants } = useVoiceTransfer({
+  const { startConnection, endConnection, paricipants } = useVoiceTransfer({
     meetingId: location.state.meetingId,
     userId: location.state.nickname,
   });
 
   useEffect(() => {
     startConnection();
+    return () => {
+      endConnection();
+    };
   }, []);
 
   return (
