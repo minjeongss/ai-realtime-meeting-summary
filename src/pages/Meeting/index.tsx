@@ -8,7 +8,7 @@ import { useSocket } from "@/hooks/useSocket";
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
-  const { participants, temporalSummary, startConnection, endConnection } =
+  const { participants, temporalSummary, startConnection, endRecording } =
     useSocket();
 
   useEffect(() => {
@@ -21,10 +21,7 @@ const Meeting = () => {
         Current Meeting Date: {date}
       </p>
       <div className="w-full h-full grid grid-cols-2 gap-12">
-        <Participant
-          participants={participants}
-          endConnection={endConnection}
-        />
+        <Participant participants={participants} endRecording={endRecording} />
         <Summary temporalSummary={temporalSummary} />
       </div>
     </div>

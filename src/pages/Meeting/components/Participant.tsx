@@ -3,9 +3,9 @@ import Profile from "./Profile";
 
 interface ParticipantProps {
   participants: string[];
-  endConnection: () => void;
+  endRecording: () => void;
 }
-const Participant = ({ participants, endConnection }: ParticipantProps) => {
+const Participant = ({ participants, endRecording }: ParticipantProps) => {
   return (
     <div className="flex flex-col">
       <div>
@@ -25,7 +25,7 @@ const Participant = ({ participants, endConnection }: ParticipantProps) => {
           Total Participants: {participants.length}
         </p>
       </div>
-      <Button color="gray" onClick={endConnection}>
+      <Button color="gray" onClick={endRecording}>
         End Meeting
       </Button>
     </div>

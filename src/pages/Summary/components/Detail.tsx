@@ -4,10 +4,11 @@ import PartDetail from "./PartDetail";
 import { useSocket } from "@/hooks/useSocket";
 
 const Detail = () => {
-  const { participants, temporalSummary } = useSocket();
+  const { participants, temporalSummary, endConnection } = useSocket();
   const navigate = useNavigate();
   const handleResetMeeting = () => {
     navigate("/");
+    endConnection();
   };
   return (
     <div className="flex flex-col">

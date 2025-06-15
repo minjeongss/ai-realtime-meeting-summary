@@ -11,6 +11,7 @@ interface SocketContextType {
   temporalSummary: TemporalSummaryResponse | null;
   entireSummary: EntireSummaryResponse | null;
   startConnection: (meetingId: string, userId: string) => void;
+  endRecording: () => void;
   endConnection: () => void;
   isConnected: boolean;
 }
@@ -103,7 +104,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     socketRef.current = socket;
   };
 
-  const endConnection = () => {
+  const endRecording = () => {
     const meetingId = currentMeetingIdRef.current;
 
     socketRef.current?.send(
@@ -121,9 +122,12 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
 
     // 연결 정리
     endVoiceCapture();
-    // socketRef.current?.close();
-    // socketRef.current = null;
     setIsConnected(false);
+  };
+
+  const endConnection = () => {
+    socketRef.current?.close();
+    socketRef.current = null;
   };
 
   const navigateToSummary = () => {
@@ -237,6 +241,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     temporalSummary,
     entireSummary,
     startConnection,
+    endRecording,
     endConnection,
     isConnected,
   };
