@@ -131,12 +131,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   };
 
   const navigateToSummary = () => {
-    navigate("/summary", {
-      state: {
-        time: "00:00:00-00:00:00",
-        participants: participantsRef.current.length,
-      },
-    });
+    navigate("/summary");
   };
 
   const startVoiceCapture = async () => {

@@ -16,7 +16,7 @@ const Detail = () => {
       <div className="flex flex-col p-4">
         <div className="grid grid-cols-2 gap-6">
           <PartDetail header="Date" content={temporalSummary?.createdAt} />
-          <PartDetail header="Title" content={temporalSummary?.title} />
+          <PartDetail header="MeetingID" content={temporalSummary?.meetingId} />
         </div>
         <div className="pt-5 pb-5">
           <PartDetail header="Patricipants" content={participants.length} />
