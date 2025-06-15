@@ -1,4 +1,7 @@
-import type { TemporalSummaryResponse } from "@/types/SocketResponse";
+import type {
+  EntireSummaryResponse,
+  TemporalSummaryResponse,
+} from "@/types/SocketResponse";
 import type { ReactNode } from "react";
 import { createContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
@@ -6,6 +9,7 @@ import { useNavigate } from "react-router";
 interface SocketContextType {
   participants: string[];
   temporalSummary: TemporalSummaryResponse | null;
+  entireSummary: EntireSummaryResponse | null;
   startConnection: (meetingId: string, userId: string) => void;
   endConnection: () => void;
   isConnected: boolean;
@@ -26,6 +30,8 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   const [participants, setParticipants] = useState<string[]>([]);
   const [temporalSummary, setTemporalSummary] =
     useState<TemporalSummaryResponse | null>(null);
+  const [entireSummary, setEntireSummary] =
+    useState<EntireSummaryResponse | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
   const navigate = useNavigate();
@@ -73,6 +79,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
           break;
         case "pdf_link":
           setTemporalSummary(message);
+          setEntireSummary(message);
           break;
         case "recording_stopped":
           endVoiceCapture();
@@ -228,6 +235,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   const contextValue: SocketContextType = {
     participants,
     temporalSummary,
+    entireSummary,
     startConnection,
     endConnection,
     isConnected,

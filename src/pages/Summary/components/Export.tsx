@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useSocket } from "@/hooks/useSocket";
 import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
-// import { useGetEntireSummary } from "@/hooks/useGetSummary";
-
 const Export = () => {
-  const [isComplete, setIsComplete] = useState(false);
   // 기존 서버 통신
+  // const [isComplete, setIsComplete] = useState(false);
   // const { mutate, data } = useGetEntireSummary(setIsComplete);
-  const data = { pdfLink: "" };
-
-  useEffect(() => {
-    // mutate();
-  }, []);
+  // useEffect(() => {
+  //   mutate();
+  // }, []);
+  const { entireSummary } = useSocket();
 
   return (
     <div className="flex flex-col gap-3 pt-4 pl-4 pr-4">
@@ -20,10 +17,10 @@ const Export = () => {
         <span>We've summarized your meeting and created a PDF for you.</span>
         <span> You can download it now or start a new meeting.</span>
       </p>
-      {isComplete ? (
-        <CompletePDF pdfLink={data?.pdfLink} />
+      {entireSummary ? (
+        <CompletePDF pdfLink={entireSummary?.pdfLinks} />
       ) : (
-        <ReadyPDF isComplete={isComplete} />
+        <ReadyPDF />
       )}
     </div>
   );

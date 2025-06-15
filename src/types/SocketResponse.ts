@@ -1,13 +1,25 @@
 export interface TemporalSummaryResponse {
   title: string;
   createdAt: string; // (YYYY-MM-DD)
-  summaryText: TemporalSummaryResult;
+  summaryText: SummaryText;
 }
 
-interface TemporalSummaryResult {
+export interface EntireSummaryResponse {
+  title: string;
+  createdAt: string; // (YYYY-MM-DD)
+  summaryText: SummaryText;
+  pdfLinks: string;
+}
+
+interface SummaryText {
   summary: string;
-  keywords: null;
-  decisions: null;
-  todo: null;
-  qa: null;
+  keywords: string[] | null;
+  decisions: string[] | null;
+  todo: string[] | null;
+  qa: QA | null;
+}
+
+interface QA {
+  question: string;
+  answer: string;
 }

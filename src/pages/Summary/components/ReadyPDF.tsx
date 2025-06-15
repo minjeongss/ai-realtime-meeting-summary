@@ -2,9 +2,9 @@ import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
 import { useState } from "react";
 
-const ReadyPDF = ({ isComplete }: { isComplete: boolean }) => {
+const ReadyPDF = () => {
   const [progress, setProgress] = useState<number>(0);
-  useTimer({ progress, setProgress, isComplete });
+  useTimer({ setProgress });
 
   return (
     <div className="flex flex-col gap-3">
