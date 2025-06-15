@@ -1,3 +1,4 @@
+import type { TemporalSummaryResponse } from "@/types/SocketResponse";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -12,6 +13,8 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const participantsRef = useRef<string[]>([]);
   const [participants, setParticipants] = useState<string[]>([]);
+  const [temporalSummary, setTemporalSummary] =
+    useState<TemporalSummaryResponse | null>(null);
   const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
   const navigate = useNavigate();
 
@@ -49,6 +52,9 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
           break;
         case "recording_already_started":
           startVoiceCapture();
+          break;
+        case "pdf_link":
+          setTemporalSummary(message);
           break;
         case "recording_stopped":
           endVoiceCapture();
@@ -192,6 +198,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
     startConnection,
     endConnection,
     participants,
+    temporalSummary,
   };
 };
 

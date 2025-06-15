@@ -1,17 +1,21 @@
 import Button from "@/components/Button";
-import { useGetTemporalSummary } from "@/hooks/useGetSummary";
+// import { useGetTemporalSummary } from "@/hooks/useGetSummary";
+import type { TemporalSummaryResponse } from "@/types/SocketResponse";
 
-const Summary = () => {
-  const { data, refetch, isFetching } = useGetTemporalSummary();
+const Summary = ({
+  temporalSummary,
+}: {
+  temporalSummary: TemporalSummaryResponse | null;
+}) => {
+  // http가 아닌 socket 사용
+  // const { data, refetch, isFetching } = useGetTemporalSummary();
   const handleLoadSummary = () => {
-    refetch();
+    // refetch();
   };
   return (
     <div className="flex flex-col p-5 gap-3">
       <p className="font-semibold text-lg">Meeting Summary so far</p>
-      <p>
-        {isFetching ? "회의록을 불러오고 있습니다...🤖" : data?.parsed.summary}
-      </p>
+      <p>{temporalSummary ? temporalSummary.summaryText.summary : ""}</p>
       <Button color="gray" onClick={handleLoadSummary}>
         Load Summary
       </Button>
