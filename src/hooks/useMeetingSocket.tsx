@@ -10,7 +10,8 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   const socketRef = useRef<WebSocket | null>(null);
   const audioStreamRef = useRef<MediaStream | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [paricipants, setParticipants] = useState<string[]>([]);
+  const participantsRef = useRef<string[]>([]);
+  const [participants, setParticipants] = useState<string[]>([]);
   const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
       console.log(message);
       switch (message.type) {
         case "joined":
+          participantsRef.current = message.participants;
           setParticipants(message.participants);
           socketRef.current?.send(
             JSON.stringify({
@@ -52,9 +54,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
           endVoiceCapture();
           break;
         case "meeting_ended":
-          navigate("/summary", {
-            state: { time: "00:00:00-00:00:00", participants: paricipants },
-          });
+          navigateToSummary();
           break;
       }
     };
@@ -83,6 +83,15 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
         meetingId: meetingId,
       })
     );
+  };
+
+  const navigateToSummary = () => {
+    navigate("/summary", {
+      state: {
+        time: "00:00:00-00:00:00",
+        participants: participantsRef.current.length,
+      },
+    });
   };
 
   const startVoiceCapture = async () => {
@@ -182,7 +191,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   return {
     startConnection,
     endConnection,
-    paricipants,
+    participants,
   };
 };
 

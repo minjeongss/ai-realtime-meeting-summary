@@ -8,7 +8,7 @@ import useVoiceTransfer from "@/hooks/useMeetingSocket";
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
-  const { startConnection, endConnection, paricipants } = useVoiceTransfer({
+  const { startConnection, endConnection, participants } = useVoiceTransfer({
     meetingId: location.state.meetingId,
     userId: location.state.nickname,
   });
@@ -24,7 +24,10 @@ const Meeting = () => {
         Current Meeting Date: {date}
       </p>
       <div className="w-full h-full grid grid-cols-2 gap-12">
-        <Participant paricipants={paricipants} endConnection={endConnection} />
+        <Participant
+          participants={participants}
+          endConnection={endConnection}
+        />
         <Summary />
       </div>
     </div>

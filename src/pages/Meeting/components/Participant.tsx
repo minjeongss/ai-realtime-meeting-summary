@@ -2,16 +2,16 @@ import Button from "../../../components/Button";
 import Profile from "./Profile";
 
 interface ParticipantProps {
-  paricipants: string[];
+  participants: string[];
   endConnection: () => void;
 }
-const Participant = ({ paricipants, endConnection }: ParticipantProps) => {
+const Participant = ({ participants, endConnection }: ParticipantProps) => {
   return (
     <div className="flex flex-col">
       <div>
         <p className="pt-5 pb-3 font-semibold text-lg">Participants</p>
         <ul className="rounded-xl bg-[#E5E8EB]/50">
-          {paricipants.map((nickname, index) => (
+          {participants.map((nickname, index) => (
             <li
               className="h-14 flex flex-row gap-4 jusfity-center items-center pl-4 pr-4"
               key={`${nickname}+${index}`}
@@ -22,7 +22,7 @@ const Participant = ({ paricipants, endConnection }: ParticipantProps) => {
           ))}
         </ul>
         <p className="pt-1 pb-3 text-sm text-[#5C738A]">
-          Total Participants: {paricipants.length}
+          Total Participants: {participants.length}
         </p>
       </div>
       <Button color="gray" onClick={endConnection}>
