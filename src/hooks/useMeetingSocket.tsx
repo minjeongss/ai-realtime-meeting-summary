@@ -153,6 +153,10 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   };
 
   const endVoiceCapture = () => {
+    if (recordingInterval.current) {
+      clearInterval(recordingInterval.current);
+      recordingInterval.current = null;
+    }
     const stream = audioStreamRef.current;
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
