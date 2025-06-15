@@ -8,14 +8,6 @@ import { useSocket } from "@/hooks/useSocket";
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
-  // 기존 socket
-  // const { startConnection, endConnection, participants, temporalSummary } =
-  //   useVoiceTransfer({
-  //     meetingId: location.state.meetingId,
-  //     userId: location.state.nickname,
-  //   });
-
-  // contextAPI socket
   const { participants, temporalSummary, startConnection, endConnection } =
     useSocket();
 

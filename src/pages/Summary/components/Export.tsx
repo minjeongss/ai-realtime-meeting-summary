@@ -2,12 +2,6 @@ import { useSocket } from "@/hooks/useSocket";
 import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
 const Export = () => {
-  // 기존 서버 통신
-  // const [isComplete, setIsComplete] = useState(false);
-  // const { mutate, data } = useGetEntireSummary(setIsComplete);
-  // useEffect(() => {
-  //   mutate();
-  // }, []);
   const { entireSummary } = useSocket();
 
   return (
