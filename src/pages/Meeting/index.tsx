@@ -15,19 +15,16 @@ const Meeting = () => {
 
   useEffect(() => {
     startConnection();
-    return () => {
-      console.log(4);
-      endConnection();
-    };
   }, []);
 
   return (
     <div>
+      <button onClick={endConnection}>test</button>
       <p className="text-center pt-5 pb-3 font-semibold text-2xl">
         Current Meeting Date: {date}
       </p>
       <div className="w-full h-full grid grid-cols-2 gap-12">
-        <Participant paricipants={paricipants} />
+        <Participant paricipants={paricipants} endConnection={endConnection} />
         <Summary />
       </div>
     </div>

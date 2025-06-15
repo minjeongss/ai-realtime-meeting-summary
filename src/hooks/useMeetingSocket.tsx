@@ -10,6 +10,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   const audioStreamRef = useRef<MediaStream | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [paricipants, setParticipants] = useState<string[]>([]);
+  const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
 
   const startConnection = () => {
     const socket = new WebSocket("ws://localhost:3000");
@@ -28,6 +29,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
 
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
+      console.log(message);
       switch (message.type) {
         case "joined":
           setParticipants(message.participants);
@@ -49,7 +51,6 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
         case "meeting_ended":
           break;
       }
-      console.log(message);
     };
 
     socket.onclose = () => {
@@ -126,17 +127,23 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
                 size: buffer.byteLength,
               })
             );
-
-            // Blob 데이터 쪼개서 전송
-            const chunkSize = 16 * 1024; // 16KB
-            for (let i = 0; i < buffer.byteLength; i += chunkSize) {
-              const chunk = buffer.slice(i, i + chunkSize);
-              socket.send(chunk);
-            }
+            socket.send(buffer);
           }
         });
         audioChunks = [];
       };
+
+      // socket 오디오 주기적 전송
+      recordingInterval.current = setInterval(() => {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+          // 녹음 중지
+          mediaRecorder.stop();
+          // 녹음 재시작
+          setTimeout(() => {
+            mediaRecorder.start();
+          }, 100);
+        }
+      }, 5000);
 
       mediaRecorder.start();
     } catch (error) {

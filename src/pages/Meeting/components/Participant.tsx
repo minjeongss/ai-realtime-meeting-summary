@@ -2,9 +2,14 @@ import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
 import Profile from "./Profile";
 
-const Participant = ({ paricipants }: { paricipants: string[] }) => {
+interface ParticipantProps {
+  paricipants: string[];
+  endConnection: () => void;
+}
+const Participant = ({ paricipants, endConnection }: ParticipantProps) => {
   const navigate = useNavigate();
   const handleQuitMeeting = () => {
+    endConnection();
     navigate("/summary", {
       state: { time: "00:00:00-00:00:00", participants: 3 },
     });
