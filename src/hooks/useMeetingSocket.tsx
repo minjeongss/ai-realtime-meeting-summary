@@ -41,6 +41,9 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
         case "recording_started":
           startVoiceCapture();
           break;
+        case "recording_already_started":
+          startVoiceCapture();
+          break;
         case "recording_stopped":
           break;
         case "meeting_ended":
