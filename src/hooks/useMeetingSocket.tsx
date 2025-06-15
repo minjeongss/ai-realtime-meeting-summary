@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 interface UseMeetingSocketProps {
   meetingId: string;
@@ -11,6 +12,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [paricipants, setParticipants] = useState<string[]>([]);
   const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
+  const navigate = useNavigate();
 
   const startConnection = () => {
     const socket = new WebSocket("ws://localhost:3000");
@@ -47,8 +49,12 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
           startVoiceCapture();
           break;
         case "recording_stopped":
+          endVoiceCapture();
           break;
         case "meeting_ended":
+          navigate("/summary", {
+            state: { time: "00:00:00-00:00:00", participants: paricipants },
+          });
           break;
       }
     };
@@ -65,7 +71,6 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
   };
 
   const endConnection = () => {
-    endVoiceCapture();
     socketRef.current?.send(
       JSON.stringify({
         type: "stop_recording",

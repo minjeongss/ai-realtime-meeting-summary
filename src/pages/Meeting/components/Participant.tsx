@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
 import Profile from "./Profile";
 
@@ -7,13 +6,6 @@ interface ParticipantProps {
   endConnection: () => void;
 }
 const Participant = ({ paricipants, endConnection }: ParticipantProps) => {
-  const navigate = useNavigate();
-  const handleQuitMeeting = () => {
-    endConnection();
-    navigate("/summary", {
-      state: { time: "00:00:00-00:00:00", participants: 3 },
-    });
-  };
   return (
     <div className="flex flex-col">
       <div>
@@ -33,7 +25,7 @@ const Participant = ({ paricipants, endConnection }: ParticipantProps) => {
           Total Participants: {paricipants.length}
         </p>
       </div>
-      <Button color="gray" onClick={handleQuitMeeting}>
+      <Button color="gray" onClick={endConnection}>
         End Meeting
       </Button>
     </div>
