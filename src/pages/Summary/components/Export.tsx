@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import CompletePDF from "./CompletePDF";
 import ReadyPDF from "./ReadyPDF";
-import { useGetEntireSummary } from "@/hooks/useGetSummary";
+// import { useGetEntireSummary } from "@/hooks/useGetSummary";
 
 const Export = () => {
   const [isComplete, setIsComplete] = useState(false);
-  const { mutate, data } = useGetEntireSummary(setIsComplete);
+  // 기존 서버 통신
+  // const { mutate, data } = useGetEntireSummary(setIsComplete);
+  const data = { pdfLink: "" };
 
   useEffect(() => {
-    mutate();
+    // mutate();
   }, []);
 
   return (

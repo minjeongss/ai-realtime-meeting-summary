@@ -1,11 +1,10 @@
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Button from "../../../components/Button";
 import PartDetail from "./PartDetail";
-import formatDate from "@/utils/formatDate";
+import { useSocket } from "@/hooks/useSocket";
 
 const Detail = () => {
-  const location = useLocation();
-  const date = formatDate(new Date());
+  const { participants, temporalSummary } = useSocket();
   const navigate = useNavigate();
   const handleResetMeeting = () => {
     navigate("/");
@@ -15,14 +14,11 @@ const Detail = () => {
       <p className="p-4 font-semibold text-lg">Meeting Details</p>
       <div className="flex flex-col p-4">
         <div className="grid grid-cols-2 gap-6">
-          <PartDetail header="Date" content={date} />
-          <PartDetail header="Time" content={location.state.time} />
+          <PartDetail header="Date" content={temporalSummary?.createdAt} />
+          <PartDetail header="Title" content={temporalSummary?.title} />
         </div>
         <div className="pt-5 pb-5">
-          <PartDetail
-            header="Patricipants"
-            content={location.state.participants}
-          />
+          <PartDetail header="Patricipants" content={participants.length} />
         </div>
       </div>
       <Button color="gray" onClick={handleResetMeeting}>

@@ -1,6 +1,6 @@
 interface PartDetailProps {
   header: string;
-  content: string;
+  content: string | number | undefined;
 }
 
 const PartDetail = ({ header, content }: PartDetailProps) => {
