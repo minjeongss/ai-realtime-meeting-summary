@@ -4,13 +4,14 @@ import App from "./App.tsx";
 import "./global.css";
 import { BrowserRouter } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SocketProvider } from "./contexts/SocketContext.tsx";
 const queryClient = new QueryClient();
 
 async function enableMocking() {
-  if (import.meta.env.DEV) {
-    const { worker } = await import("./mocks/browser");
-    return worker.start();
-  }
+  // if (import.meta.env.DEV) {
+  //   const { worker } = await import("./mocks/browser");
+  //   return worker.start();
+  // }
 }
 
 enableMocking().then(() => {
@@ -18,7 +19,9 @@ enableMocking().then(() => {
     <StrictMode>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <SocketProvider>
+            <App />
+          </SocketProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </StrictMode>

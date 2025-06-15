@@ -1,36 +1,54 @@
 import type { TemporalSummaryResponse } from "@/types/SocketResponse";
-import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
-interface UseMeetingSocketProps {
-  meetingId: string;
-  userId: string;
+interface SocketContextType {
+  participants: string[];
+  temporalSummary: TemporalSummaryResponse | null;
+  startConnection: (meetingId: string, userId: string) => void;
+  endConnection: () => void;
+  isConnected: boolean;
 }
 
-const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
+const SocketContext = createContext<SocketContextType | undefined>(undefined);
+
+interface SocketProviderProps {
+  children: ReactNode;
+}
+
+const SocketProvider = ({ children }: SocketProviderProps) => {
   const socketRef = useRef<WebSocket | null>(null);
   const audioStreamRef = useRef<MediaStream | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const participantsRef = useRef<string[]>([]);
+  const currentMeetingIdRef = useRef<string>("");
   const [participants, setParticipants] = useState<string[]>([]);
   const [temporalSummary, setTemporalSummary] =
     useState<TemporalSummaryResponse | null>(null);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
   const recordingInterval = useRef<ReturnType<typeof setInterval>>(null);
   const navigate = useNavigate();
 
-  const startConnection = () => {
+  const startConnection = (meetingId: string, userId: string) => {
+    // 기존 연결이 있다면 종료
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
+
+    currentMeetingIdRef.current = meetingId;
     const socket = new WebSocket("ws://localhost:3000");
 
     socket.onopen = () => {
       console.log("WebSocket 연결 성공");
-
-      //meetingId, userId 설정 전송
-      const joinMessage = {
-        type: "join",
-        meetingId,
-        userId,
-      };
-      socket.send(JSON.stringify(joinMessage));
+      setIsConnected(true);
+      socket.send(
+        JSON.stringify({
+          type: "join",
+          meetingId,
+          userId,
+        })
+      );
     };
 
     socket.onmessage = (event) => {
@@ -67,16 +85,20 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
 
     socket.onclose = () => {
       console.log("WebSocket 연결 종료");
+      setIsConnected(false);
     };
 
     socket.onerror = (error) => {
       console.error("WebSocket 오류:", error);
+      setIsConnected(false);
     };
 
     socketRef.current = socket;
   };
 
   const endConnection = () => {
+    const meetingId = currentMeetingIdRef.current;
+
     socketRef.current?.send(
       JSON.stringify({
         type: "stop_recording",
@@ -89,6 +111,12 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
         meetingId: meetingId,
       })
     );
+
+    // 연결 정리
+    endVoiceCapture();
+    // socketRef.current?.close();
+    // socketRef.current = null;
+    setIsConnected(false);
   };
 
   const navigateToSummary = () => {
@@ -143,7 +171,7 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
             socket.send(
               JSON.stringify({
                 type: "complete_audio_file",
-                meetingId: meetingId,
+                meetingId: currentMeetingIdRef.current,
                 size: buffer.byteLength,
               })
             );
@@ -182,24 +210,34 @@ const useMeetingSocket = ({ meetingId, userId }: UseMeetingSocketProps) => {
       stream.getTracks().forEach((track) => track.stop());
     }
     const recorder = mediaRecorderRef.current;
-    if (recorder && recorder.state === "inactive") {
+    if (recorder && recorder.state !== "inactive") {
       recorder.stop();
     }
+    audioStreamRef.current = null;
+    mediaRecorderRef.current = null;
   };
 
-  // 컴포넌트 unmount될 때 socket 제거
+  // 컴포넌트 unmount될 때 정리
   useEffect(() => {
     return () => {
+      endVoiceCapture();
       socketRef.current?.close();
     };
   }, []);
 
-  return {
-    startConnection,
-    endConnection,
+  const contextValue: SocketContextType = {
     participants,
     temporalSummary,
+    startConnection,
+    endConnection,
+    isConnected,
   };
+
+  return (
+    <SocketContext.Provider value={contextValue}>
+      {children}
+    </SocketContext.Provider>
+  );
 };
 
-export default useMeetingSocket;
+export { SocketContext, SocketProvider };

@@ -3,19 +3,24 @@ import Participant from "./components/Participant";
 import Summary from "./components/Summary";
 import { useLocation } from "react-router";
 import formatDate from "@/utils/formatDate";
-import useVoiceTransfer from "@/hooks/useMeetingSocket";
+import { useSocket } from "@/hooks/useSocket";
 
 const Meeting = () => {
   const date = formatDate(new Date());
   const location = useLocation();
-  const { startConnection, endConnection, participants, temporalSummary } =
-    useVoiceTransfer({
-      meetingId: location.state.meetingId,
-      userId: location.state.nickname,
-    });
+  // 기존 socket
+  // const { startConnection, endConnection, participants, temporalSummary } =
+  //   useVoiceTransfer({
+  //     meetingId: location.state.meetingId,
+  //     userId: location.state.nickname,
+  //   });
+
+  // contextAPI socket
+  const { participants, temporalSummary, startConnection, endConnection } =
+    useSocket();
 
   useEffect(() => {
-    startConnection();
+    startConnection(location.state.meetingId, location.state.nickname);
   }, []);
 
   return (

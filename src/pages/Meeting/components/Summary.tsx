@@ -15,7 +15,7 @@ const Summary = ({
   return (
     <div className="flex flex-col p-5 gap-3">
       <p className="font-semibold text-lg">Meeting Summary so far</p>
-      <p>{temporalSummary ? temporalSummary.summaryText.summary : ""}</p>
+      <p>{temporalSummary ? temporalSummary.title : ""}</p>
       <Button color="gray" onClick={handleLoadSummary}>
         Load Summary
       </Button>
