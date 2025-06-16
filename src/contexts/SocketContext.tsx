@@ -78,15 +78,17 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
         case "recording_already_started":
           startVoiceCapture();
           break;
-        case "pdf_link":
+        case "intermediate_summary":
           setTemporalSummary(message);
-          setEntireSummary(message);
           break;
         case "recording_stopped":
           endVoiceCapture();
           break;
         case "meeting_ended":
           navigateToSummary();
+          break;
+        case "pdf_link":
+          setEntireSummary(message);
           break;
       }
     };

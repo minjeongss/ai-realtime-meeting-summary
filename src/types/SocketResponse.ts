@@ -1,13 +1,15 @@
 export interface TemporalSummaryResponse {
-  title: string;
+  type: string;
   meetingId: string;
+  title: string;
   createdAt: string; // (YYYY-MM-DD)
   summaryText: SummaryText;
 }
 
 export interface EntireSummaryResponse {
-  title: string;
+  type: string;
   meetingId: string;
+  title: string;
   createdAt: string; // (YYYY-MM-DD)
   summaryText: SummaryText;
   pdfLinks: string;
