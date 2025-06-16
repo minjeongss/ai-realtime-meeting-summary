@@ -82,10 +82,10 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
           setTemporalSummary(message);
           break;
         case "recording_stopped":
+          navigateToSummary();
           endVoiceCapture();
           break;
         case "meeting_ended":
-          navigateToSummary();
           break;
         case "pdf_link":
           setEntireSummary(message);
