@@ -44,7 +44,11 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     }
 
     currentMeetingIdRef.current = meetingId;
-    const socket = new WebSocket(`ws://${import.meta.env.VITE_EC2_URL}`);
+    const socketURL =
+      import.meta.env.MODE === "development"
+        ? `ws://${import.meta.env.VITE_EC2_URL}`
+        : `wss://${import.meta.env.VITE_EC2_URL}`;
+    const socket = new WebSocket(socketURL);
 
     socket.onopen = () => {
       console.log("WebSocket 연결 성공");
