@@ -44,7 +44,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     }
 
     currentMeetingIdRef.current = meetingId;
-    const socket = new WebSocket("ws://localhost:3000");
+    const socket = new WebSocket(`ws://${import.meta.env.VITE_EC2_URL}`);
 
     socket.onopen = () => {
       console.log("WebSocket 연결 성공");
