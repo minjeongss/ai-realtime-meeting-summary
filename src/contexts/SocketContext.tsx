@@ -47,7 +47,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     const socketURL =
       import.meta.env.MODE === "development"
         ? `ws://${import.meta.env.VITE_EC2_URL}`
-        : `wss://${import.meta.env.VITE_EC2_URL}`;
+        : `ws://${import.meta.env.VITE_EC2_URL}`;
     const socket = new WebSocket(socketURL);
 
     socket.onopen = () => {
