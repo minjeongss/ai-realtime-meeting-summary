@@ -10,7 +10,7 @@ const ReadyPDF = () => {
     <div className="flex flex-col gap-3">
       <p>Making meeting summary 🔥</p>
       <Progress value={progress} />
-      <p className="text-sm text-[#4D7399]">Expected Time: 2 Minutes</p>
+      <p className="text-sm text-[#4D7399]">Expected Time: 30 Seconds</p>
     </div>
   );
 };

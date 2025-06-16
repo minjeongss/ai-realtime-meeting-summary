@@ -82,8 +82,8 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
           setTemporalSummary(message);
           break;
         case "recording_stopped":
-          navigateToSummary();
           endVoiceCapture();
+          navigateToSummary();
           break;
         case "meeting_ended":
           break;
@@ -130,6 +130,14 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   const endConnection = () => {
     socketRef.current?.close();
     socketRef.current = null;
+    resetState();
+  };
+
+  const resetState = () => {
+    setParticipants([]);
+    setTemporalSummary(null);
+    setIsConnected(false);
+    setEntireSummary(null);
   };
 
   const navigateToSummary = () => {
@@ -230,6 +238,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     return () => {
       endVoiceCapture();
       socketRef.current?.close();
+      resetState();
     };
   }, []);
 

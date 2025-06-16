@@ -6,16 +6,17 @@ interface UseTimerProps {
 
 const useTimer = ({ setProgress }: UseTimerProps) => {
   useEffect(() => {
+    let elapsedSeconds = 0;
+    const totalSeconds = 35;
     const timer = setInterval(() => {
-      setProgress((prev) => {
-        const nextProgress = prev + 10;
-        if (nextProgress >= 90) {
-          clearInterval(timer);
-          return 100;
-        }
-        return nextProgress;
-      });
-    }, 1200);
+      elapsedSeconds++;
+      const nextProgress = Math.min((elapsedSeconds / totalSeconds) * 100, 100);
+      setProgress(nextProgress);
+
+      if (elapsedSeconds >= totalSeconds) {
+        clearInterval(timer);
+      }
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
 };
